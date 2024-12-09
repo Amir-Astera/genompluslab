@@ -1,0 +1,174 @@
+server:
+  forward-headers-strategy: framework
+#  ssl:
+#    key-store: /root/project/texnofinance.p12
+#    key-store: C:\Users\Arsen\IdeaProjects\texno-finance-server\texnofinance.p12
+#    key-store-password: texnofinance123
+#    key-store-type: pkcs12
+#    key-alias: springboot
+#    key-password: texnofinance123
+  error:
+    include-message: always
+spring:
+  data.r2dbc.repositories.enabled: true
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  flyway:
+    enabled: false
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: postgres
+    schemas: public
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+      location: ${java.io.tmpdir}
+  codec.max-in-memory-size: 100MB
+  jackson:
+    default-property-inclusion: non_null
+#    mapper.accept_case_insensitive_enums: true
+#    serialization.indent_output: true
+  output:
+    ansi:
+      enabled: always
+webflux:
+    static-path-pattern: /assets/**
+file:
+  storage:
+    directory: ./files
+content:
+  allowedTypes:
+    - video/quicktime
+    - video/x-msvideo
+    - video/mp4
+    - image/svg+xml
+    - image/jpeg
+    - image/gif
+    - image/bmp
+    - image/png
+    - application/zip
+    - application/octet-stream
+logo:
+  allowedTypes:
+    - image/svg+xml
+    - image/jpeg
+    - image/jpg
+    - image/bmp
+    - image/png
+  maxSize: 20MB
+security:
+  firebase-props:
+    enable-strict-server-session: true
+    enable-check-session-revoked: false
+    enable-logout-everywhere: false
+    session-expiry-in-days: 5
+    api-identity-url: https://identitytoolkit.googleapis.com/v1/accounts
+    api-key: AIzaSyA9JdpFIw8eLnDDhNB6-U5iL8tXtRVOdH4
+    google-credentials: ${GOOGLE_APPLICATION_CREDENTIALS}
+#    google-credentials: C:\Users\Arsen\IdeaProjects\texno-finance-server\texno-finance-firebase.json
+  cookie-props:
+    max-age-in-minutes: 7200
+    http-only: true
+    secure: true
+    domain: ${CORS_DOMAIN}
+    path: /
+  allow-credentials: true
+  allowed-origins:
+    - "https://curs-clearfinance.kz/"
+    - "*"
+  allowed-methods:
+    - GET
+    - HEAD
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowed-headers:
+    - Authorization
+    - Origin
+    - Content-Type
+    - Accept
+    - Accept-Encoding
+    - Accept-Language
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Headers
+    - Access-Control-Request-Method
+    - X-Requested-With
+    - X-Auth-Token
+    - X-Xsrf-Token
+    - Cache-Control
+    - Id-Token
+  allowed-public-apis:
+    - /actuator
+    - /actuator/
+    - /actuator/**
+    - /favicon.ico
+    - /public/*
+    - /
+    - /swagger-ui.html
+    - /webjars/swagger-ui/**
+    - /v3/api-docs/**
+    - /api/logs
+    - /api/partners/*/logo.*
+    - /api/users/*/logo.*
+    - /api/lessons/*/logo.*
+    - /api/modules/*/logo.*
+    - /auth
+    - /api/users
+    - /api/files
+    - /api/lessons
+    - /api/authorities
+    - /api/modules
+    - /auth/**
+    - /resources/**
+    - /webjars/**
+    - /assets/**
+  exposed-headers:
+    - X-Xsrf-Token
+    - location
+    - status
+    - date
+    - content-length
+task:
+  poolSize: 5
+  threadNamePrefix: "ThreadPoolTaskScheduler"
+  checkContentTask:
+    executionPeriod: 10s
+  stopContentTask:
+    executionPeriod: 15s
+  getCameraLogsTask:
+    executionPeriod: 0s
+    startedAtInterval: 2m
+    coverageInterval: 1m
+management:
+  endpoint.health.probes.enabled: true
+  endpoint.loggers.enabled: true
+  endpoint.prometheus.enabled: true
+  endpoint.info.enabled: true
+  endpoints.web.exposure.include: "info, health, loggers, prometheus"
+logging:
+  level:
+    root: INFO
+    org.springframework.web: TRACE
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.web.servlet.FrameworkServlet: DEBUG
+    org.apache.http.impl.client.DefaultRedirectStrategy: INFO
+    org.springframework.security: WARN
+    level.org.hibernate: WARN
+
+  pattern.console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr(%5p -) %clr([%X{CorrelationId}]){magenta} %clr(%-50.50logger{15}){cyan} %clr([%7thread]) %clr(:) %clr(%replace(%m){\"password=.*, \", \"password=xxx, \"}%n%wEx)"

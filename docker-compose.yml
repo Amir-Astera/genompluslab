@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  app:
+    build: ./course
+    env_file:
+      - ./course/.env
+      - ./course/firebase.env
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    depends_on:
+      - db
+    links:
+      - db
+    command: [ "java", "-Xmx2048m", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "/app.jar", "--server.port=8080" ]
+
+  db:
+    image: postgres:13.1
+    env_file:
+      - ./course/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build: ./react-login-demo/frontend
+    ports:
+      - "80:80"
+
+#version: '3'
+#services:
+#  app:
+#    build: . # Сборка образа из текущей директории
+#    ports:
+#      - "8080:8080" # Проброс порта 8080 из контейнера на хост-машину
+#    depends_on:
+#      - db # Указываем зависимость от сервиса базы данных
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/your_database_name # URL подключения к базе данных
+#      - SPRING_DATASOURCE_USERNAME=your_database_user # Имя пользователя базы данных
+#      - SPRING_DATASOURCE_PASSWORD=your_database_password # Пароль базы данных
+#  db:
+#    image: postgres:latest # Используем официальный образ PostgreSQL
+#    environment:
+#      - POSTGRES_DB=your_database_name # Имя базы данных
+#      - POSTGRES_USER=your_database_user # Имя пользователя базы данных
+#      - POSTGRES_PASSWORD=your_database_password # Пароль базы данных
+#    ports:
+#      - "5432:5432" # Проброс порта 5432 из контейнера на хост-машину (необязательно, если не нужен доступ извне)
+#    volumes:
+#      - db-data:/var/lib/postgresql/data # Сохранение данных базы данных на хост-машине
+#volumes:
+#  db-data: # Именованный том для сохранения данных PostgreSQL
