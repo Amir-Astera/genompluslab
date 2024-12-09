@@ -5,15 +5,15 @@ import innobiz.crm.genompluslab.feature.topic.presentation.dto.TopicDto
 import org.springframework.stereotype.Service
 
 interface DeleteTopicUseCase {
-    suspend operator fun invoke(dto: TopicDto)
+    suspend operator fun invoke(id: String)
 }
 
 @Service
 internal class DeleteTopicUseCaseImpl(
         private val topicService: TopicService
 ): DeleteTopicUseCase {
-    override suspend fun invoke(dto: TopicDto) {
-        val topic = topicService.get(dto.id)
+    override suspend fun invoke(id: String) {
+        val topic = topicService.get(id)
         topicService.delete(topic.id)
     }
 

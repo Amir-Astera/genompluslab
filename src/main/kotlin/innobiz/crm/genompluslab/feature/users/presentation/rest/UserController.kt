@@ -89,7 +89,7 @@ class UserController(
 
     @SecurityRequirement(name = "security_auth")
     @OkApiResponses
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     suspend fun update(
             @PathVariable id: String,
             @RequestBody dto: UpdateUserDto

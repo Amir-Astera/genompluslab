@@ -1,25 +1,23 @@
 package innobiz.crm.genompluslab.feature.topic.domain.usecases
 
-import com.dev.course.core.config.api.CreateResponseDto
 import innobiz.crm.genompluslab.feature.topic.domain.services.TopicService
-import innobiz.crm.genompluslab.feature.topic.presentation.dto.UpdateTopicDto
+import innobiz.crm.genompluslab.feature.topic.presentation.dto.TopicDto
 import org.springframework.stereotype.Service
 
 interface UpdateTopicUseCase {
-    suspend operator fun invoke(dto: UpdateTopicDto): CreateResponseDto
+    suspend operator fun invoke(id: String, dto: TopicDto)
 }
 
 @Service
 internal class UpdateTopicUseCaseImpl(
     private val topicService: TopicService
 ): UpdateTopicUseCase {
-    override suspend fun invoke(dto: UpdateTopicDto): CreateResponseDto {
-        val topic = topicService.get(dto.id)
-        val id = topicService.save(
+    override suspend fun invoke(id: String, dto: TopicDto) {
+        val topic = topicService.get(id)
+        topicService.save(
                 topic.copy(
                 name = dto.name
         ))
-        return CreateResponseDto(id)
     }
 
 }
