@@ -4,16 +4,15 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
+import java.util.*
 
 @Table(name = "city")
-class CityEntity(
+data class CityEntity(
         @Id
-        val id: String,
+        val id: String = UUID.randomUUID().toString(),
         val name: String,
-        val userId: String,
-        val analysisId: String,
         @Version
-        val version: Long?,
-        val createdAt: LocalDateTime? = null,
+        var version: Long?,
+        val createdAt: LocalDateTime,
         val updatedAt: LocalDateTime
 )

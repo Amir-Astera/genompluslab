@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "genompluslab-84d7d",
+  "private_key_id": "ed830952c6fc4070c7038685bae74b66653b508b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCOegtlqy9xiIFg\n+I6ni/S4H8jJuJvBCL0ubQ0AN39C4VOfnetmU4YU8tl+VdOh5Iu45S+uJaCZPtQ0\nsW9f53Vd/jiO9uaL1w5y7GLvazuRhRdpz5vFg6P7uOOqGKHB581KC+sHH/t48xxe\ndvmCwYJqDL4snfEqhy6z3VyZr+bY8XvtNCbl8oNiOBFFUoqKuQTryQ/TJvdTDA/c\nxB1Sz+0UfzOhqqyLbXdyYsxQ8Er0oiKksWKbEU+dLclMUF5PvtFhf3HY8zw7Htob\nhL7Zgarv/TY9+ApOF6b1YRiRA/G9aOztXPLvKXFOcpUV8P0zDpmdsJJ/1evQABHY\nBe0BBiSfAgMBAAECggEAKpWHuoeD0qc+JEGmQaWvKyk01jX7N6LpCGtHq3zq6I54\ndAi7RwZH2RMMtpnoe0bYDBdUPPS6H5OL0YQHCd8gUUuek/xvw/QvOWI13+FpGIFz\nEgkfQdWquZ31Te22y0IBNdSCFssUWn4vSHy+7rnvxMqyPJuobVGiP9g1ySmuEcEJ\nPTvqKpb8xRGOKRBYBUTYXbUG0tVJVkMjoBbOsC9kPNpi1y1v9dHH5UYRzNat2zEX\nvluUUoxvbDoKMUPcDW8caOR0B86seZzaNf8trZB6eEqELl/5A364KaeVMFZh6dTu\nN2Rlg70dD7u2w61BOaBZlfy+PYnWySqUz7eyjWvCwQKBgQDI9E2z89kgNWwcmnyB\nnw0ruhTXzjFxdvprRbsTPhJyYRYFr1CzOHBJIj4fqSwB0vWf/ApjMMNfWwHF18tK\n4jlCRMHDLsoGQDRQtWZ0e/cZOSzkcN0054rO6GZH9zYoIbk2r62oUKoNy0CwVX5y\ng5fyqE3Rstoc1Zla86zzTgZWSQKBgQC1gRECn0cIlBDDIHqJPUOjoRZ+En9SlPdS\nrqH3Hh9w0ToHm3avahKXjw8YnxUfcUDIFvcnzCgrN9qw+KYmYy6L0ZuV7y71Jy1m\ns7s64bitTmdkxBx2UNvWvSf/SP1HH0hOunzie1VLnGHZ4thq6mlHky3l8JVKDQvU\n0Qz8xNkDpwKBgCJA2lnZL+J4mLQLdTuXA+S3NERQxkbD9A2C9k9iXjyW5e0UJBpY\nfXNJ3fMBoBmzfuDFUnPz5OmFFrlFfkaGZyIvnCOL/y2vlftH4G3sj4MCJu/NeTdC\nXHvGS2Dq95VBolN7AIvXLBVr1tv3xrT4T1cybwlWhi0yD5DcRle2rgfZAoGAB9Oa\n8iwAGiSYXHGoFwbnRcUKfUE68EqwJ4aUQV2xKWI8SFux0HqYdqSamAs0E/kEPByR\nZ8vr54EvEvaF453fQfQ16083DSc1U/poFm/pUL/SwYubVpbCBA6ADQgOs+Rrb8mm\n3PVIhkwmBAk+H84f4BA+qG2pYloRqomhL70lRn0CgYA3HSvbdzzOdUqVMlRqsIEJ\neFAEgaiaUVpU+TWj6OcSc3ZEo94sEOlqb6YWfhLLpuznLsATluFT19R/VJtM19zt\nnZqzdLXXbr/S9gLkfV4vpUl1NSkGd7xC2yn4+r2KqBXfgTVZOKyo1BlmP7yR3A1B\n8DI6uQxIrpM08R9dU30d5g==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-jnhll@genompluslab-84d7d.iam.gserviceaccount.com",
+  "client_id": "117324728620739803130",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jnhll%40genompluslab-84d7d.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

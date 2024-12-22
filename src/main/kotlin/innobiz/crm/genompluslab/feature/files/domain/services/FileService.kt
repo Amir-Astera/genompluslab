@@ -1,10 +1,10 @@
-package com.dev.course.feature.files.domain.services
+package innobiz.crm.genompluslab.feature.files.domain.services
 
 import innobiz.crm.genompluslab.core.extension.toModel
-import com.dev.course.feature.files.data.FileEntity
-import com.dev.course.feature.files.domain.models.File
-import com.dev.course.feature.files.domain.models.FileDirectory
-import com.dev.course.feature.repositories.FileRepository
+import innobiz.crm.genompluslab.feature.files.data.FileEntity
+import innobiz.crm.genompluslab.feature.files.domain.models.File
+import innobiz.crm.genompluslab.feature.files.domain.models.FileDirectory
+import innobiz.crm.genompluslab.feature.repositories.FileRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.reactor.awaitSingleOrNull

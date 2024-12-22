@@ -1,4 +1,4 @@
-package com.dev.course.feature.authorization.presentation.dto
+package innobiz.crm.genompluslab.feature.authorization.presentation.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

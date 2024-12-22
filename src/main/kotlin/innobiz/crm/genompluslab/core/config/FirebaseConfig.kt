@@ -1,10 +1,10 @@
-package com.dev.course.core.config
+package innobiz.crm.genompluslab.core.config
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.dev.course.core.config.properties.SecurityProperties
+import innobiz.crm.genompluslab.core.config.properties.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn

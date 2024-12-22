@@ -1,4 +1,4 @@
-package com.dev.course.core.config.properties
+package innobiz.crm.genompluslab.core.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

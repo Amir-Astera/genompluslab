@@ -1,4 +1,4 @@
-package com.dev.course.core.config.properties
+package innobiz.crm.genompluslab.core.config.properties
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.reactor.asCoroutineDispatcher

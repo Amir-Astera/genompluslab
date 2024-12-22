@@ -1,8 +1,8 @@
-package com.dev.course.feature.users.domain.models
+package innobiz.crm.genompluslab.feature.users.domain.models
 
-import com.dev.course.feature.authority.domain.errors.AuthorityNotFoundException
-import com.dev.course.feature.authority.domain.models.Authority
-import com.dev.course.feature.users.presentation.dto.UpdateUserDto
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.authority.domain.models.Authority
+import innobiz.crm.genompluslab.feature.users.presentation.dto.UpdateUserDto
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -109,7 +109,7 @@ class UserAggregate(
 
         companion object {
             fun from(value: Short): UserStatus {
-                return values().find { it.value == value }
+                return entries.find { it.value == value }
                         ?: throw IllegalArgumentException("Status '$value' not defined")
             }
         }

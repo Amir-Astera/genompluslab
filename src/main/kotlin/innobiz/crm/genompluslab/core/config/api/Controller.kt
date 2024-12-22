@@ -1,14 +1,17 @@
-package com.dev.course.core.config.api
+package innobiz.crm.genompluslab.core.config.api
 
-import com.dev.course.feature.authority.domain.errors.AuthorityDuplicateNameException
-import com.dev.course.feature.authority.domain.errors.AuthorityNotFoundException
-import com.dev.course.feature.authorization.domain.errors.FirebaseAuthException
-import com.dev.course.feature.lesson.domain.errors.LessonNotFoundException
-import com.dev.course.feature.modules.domain.errors.ModuleNotFoundException
-import com.dev.course.feature.users.domain.errors.AdminAuthorityNotFoundException
-import com.dev.course.feature.users.domain.errors.UserDuplicateLoginException
-import com.dev.course.feature.users.domain.errors.UserNotFoundException
-import com.dev.course.feature.users.domain.errors.UserPartnersNotFoundException
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityDuplicateNameException
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.users.domain.errors.AdminAuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserDuplicateLoginException
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserNotFoundException
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserPartnersNotFoundException
+import innobiz.crm.genompluslab.feature.analysis.domain.errors.AnalysisNotFoundException
+import innobiz.crm.genompluslab.feature.analysis.domain.errors.GetAllAnalysisNotFoundException
+import innobiz.crm.genompluslab.feature.authorization.domain.errors.FirebaseAuthException
+import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicAnalysesNotFoundException
+import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicDuplicateNameException
+import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicNotFoundException
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -35,10 +38,13 @@ abstract class Controller(val logger: Logger) {
                     is UserNotFoundException,
                     is UserPartnersNotFoundException,
                     is AuthorityNotFoundException,
-                    is ModuleNotFoundException,
-                    is LessonNotFoundException,
                     is AdminAuthorityNotFoundException,
                     is AuthorityDuplicateNameException,
+                    is AnalysisNotFoundException,
+                    is GetAllAnalysisNotFoundException,
+                    is TopicAnalysesNotFoundException,
+                    is TopicDuplicateNameException,
+                    is TopicNotFoundException,
                     is UserDuplicateLoginException -> Pair(HttpStatus.CONFLICT, ex.message)
                         else -> {
                                 logger.error("Unhandled error", ex)

@@ -1,4 +1,4 @@
-package com.dev.course.core.security
+package innobiz.crm.genompluslab.core.security
 
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.AuthenticationException

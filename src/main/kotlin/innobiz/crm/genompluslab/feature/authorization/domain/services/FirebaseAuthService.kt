@@ -1,9 +1,13 @@
-package com.dev.course.feature.authorization.domain.services
+package innobiz.crm.genompluslab.feature.authorization.domain.services
 
-import com.dev.course.core.config.properties.SecurityProperties
-import com.dev.course.feature.authorization.presentation.dto.AuthFirebaseResponseDto
-import com.dev.course.feature.authorization.presentation.dto.AuthRequestDto
-import com.dev.course.feature.authorization.presentation.dto.AuthResponseDto
+import com.google.firebase.ErrorCode
+import com.google.firebase.FirebaseException
+import innobiz.crm.genompluslab.core.config.properties.SecurityProperties
+import innobiz.crm.genompluslab.feature.authorization.domain.errors.FirebaseAuthException
+import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthFirebaseResponseDto
+import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthRequestDto
+import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthResponseDto
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -32,34 +36,18 @@ class FirebaseAuthServiceImpl(
             returnSecureToken = true
         )
         val response = webClient.post()
-            .uri(url)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(requestData)
-            .awaitExchange { it.awaitEntity<AuthFirebaseResponseDto>() }
-        println("--------------------------------------------------------")
-        println("Gradle built")
-        println("--------------------------------------------------------")
-
+                .uri(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(requestData)
+                .awaitExchange { it.awaitEntity<AuthFirebaseResponseDto>() }
         val responseData = response.body
-        println(responseData)
+        if (response.statusCode != HttpStatus.OK || responseData == null) {
+            throw FirebaseAuthException(FirebaseException(ErrorCode.UNAVAILABLE, "Authorization failed!", Throwable()).message ?: "EROrArrrrrrrrrrrrrrrrrrrrrr")
+        }
 
-
-
-//        if (response.statusCode() != HttpStatus.OK) {
-//            throw FirebaseAuthException("Authorization failed!")
-//        }
-
-//        println(response.statusCode())
-//        println(response.awaitEntity<AuthFirebaseResponseDto>().body)
-//        println(response.awaitEntity<AuthFirebaseResponseDto>().body?.email)
-//
-//        val responseData = response.awaitEntity<AuthFirebaseResponseDto>().body
-//            ?: throw FirebaseAuthException("Authorization failed: Unrecognized response!")
-
-        println(responseData!!.idToken)
         return AuthResponseDto(
             tokenType = "Bearer",
-            accessToken = responseData!!.idToken,
+            accessToken = responseData.idToken,
             refreshToken = responseData.refreshToken,
             expiresIn = responseData.expiresIn
         )

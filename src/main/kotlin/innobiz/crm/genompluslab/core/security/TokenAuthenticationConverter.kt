@@ -1,6 +1,6 @@
-package com.dev.course.core.security
+package innobiz.crm.genompluslab.core.security
 
-import com.dev.course.core.security.firebase.FirebaseSecurityUtils
+import innobiz.crm.genompluslab.core.security.firebase.FirebaseSecurityUtils
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
 import org.springframework.web.server.ServerWebExchange

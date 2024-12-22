@@ -1,4 +1,4 @@
-package com.dev.course.core.config.properties
+package innobiz.crm.genompluslab.core.config.properties
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

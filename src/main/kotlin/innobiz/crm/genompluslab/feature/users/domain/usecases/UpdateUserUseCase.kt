@@ -1,10 +1,10 @@
-package com.dev.course.feature.users.domain.usecases
+package innobiz.crm.genompluslab.feature.users.domain.usecases
 
-import com.dev.course.feature.authority.domain.errors.AuthorityNotFoundException
-import com.dev.course.feature.authority.domain.services.AuthorityAggregateService
-import com.dev.course.feature.users.domain.errors.UserDuplicateLoginException
-import com.dev.course.feature.users.domain.services.UserAggregateService
-import com.dev.course.feature.users.presentation.dto.UpdateUserDto
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.authority.domain.services.AuthorityAggregateService
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserDuplicateLoginException
+import innobiz.crm.genompluslab.feature.users.domain.services.UserAggregateService
+import innobiz.crm.genompluslab.feature.users.presentation.dto.UpdateUserDto
 import org.springframework.stereotype.Service
 
 interface UpdateUserUseCase {

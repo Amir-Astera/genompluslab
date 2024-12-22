@@ -1,5 +1,5 @@
 server:
-  forward-headers-strategy: framework
+#  forward-headers-strategy: framework
 #  ssl:
 #    key-store: /root/project/texnofinance.p12
 #    key-store: C:\Users\Arsen\IdeaProjects\texno-finance-server\texnofinance.p12
@@ -76,9 +76,9 @@ security:
     enable-logout-everywhere: false
     session-expiry-in-days: 5
     api-identity-url: https://identitytoolkit.googleapis.com/v1/accounts
-    api-key: AIzaSyA9JdpFIw8eLnDDhNB6-U5iL8tXtRVOdH4
-    google-credentials: ${GOOGLE_APPLICATION_CREDENTIALS}
-#    google-credentials: C:\Users\Arsen\IdeaProjects\texno-finance-server\texno-finance-firebase.json
+    api-key: AIzaSyATM8Wo3YZaE9gVeuthLEczg4Y63dE5_mA
+#    google-credentials: ${GOOGLE_APPLICATION_CREDENTIALS}
+    google-credentials: D:\genompluslab\genumpluslab-firebase.json
   cookie-props:
     max-age-in-minutes: 7200
     http-only: true
@@ -87,7 +87,6 @@ security:
     path: /
   allow-credentials: true
   allowed-origins:
-    - "https://curs-clearfinance.kz/"
     - "*"
   allowed-methods:
     - GET

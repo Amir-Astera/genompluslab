@@ -1,14 +1,17 @@
-package com.dev.course.feature.users.presentation.rest
+package innobiz.crm.genompluslab.feature.users.presentation.rest
 
-import com.dev.course.core.config.api.Controller
-import com.dev.course.core.config.api.CreateApiResponses
-import com.dev.course.core.config.api.CreateResponseDto
-import com.dev.course.core.config.api.OkApiResponses
-import com.dev.course.core.security.SessionUser
-import com.dev.course.core.security.firebase.FirebaseSecurityUtils
-import com.dev.course.feature.users.domain.models.UserAggregate
-import com.dev.course.feature.users.domain.usecases.*
-import com.dev.course.feature.users.presentation.dto.*
+import innobiz.crm.genompluslab.core.config.api.Controller
+import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
+import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
+import innobiz.crm.genompluslab.core.config.api.OkApiResponses
+import innobiz.crm.genompluslab.core.security.SessionUser
+import innobiz.crm.genompluslab.core.security.firebase.FirebaseSecurityUtils
+import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
+import innobiz.crm.genompluslab.feature.users.domain.usecases.*
+import innobiz.crm.genompluslab.feature.users.presentation.dto.AddAuthoritiesToUserDto
+import innobiz.crm.genompluslab.feature.users.presentation.dto.CreateUserDto
+import innobiz.crm.genompluslab.feature.users.presentation.dto.DeleteAuthoritiesFromUserDto
+import innobiz.crm.genompluslab.feature.users.presentation.dto.UpdateUserDto
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema

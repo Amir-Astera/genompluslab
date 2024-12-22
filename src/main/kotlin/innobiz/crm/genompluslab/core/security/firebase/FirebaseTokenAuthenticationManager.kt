@@ -1,7 +1,7 @@
-package com.dev.course.core.security.firebase
+package innobiz.crm.genompluslab.core.security.firebase
 
+import innobiz.crm.genompluslab.feature.authorization.domain.usecases.SaveSessionUserUseCase
 import com.google.firebase.auth.FirebaseAuth
-import com.dev.course.feature.authorization.domain.usecases.SaveSessionUserUseCase
 import kotlinx.coroutines.reactor.mono
 import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.ReactiveAuthenticationManager
@@ -44,7 +44,6 @@ class FirebaseTokenAuthenticationManager(
     private fun authenticateToken(authenticationToken: PreAuthenticatedAuthenticationToken): Mono<UserDetails> {
         val token = authenticationToken.credentials as? String
         val authentication = SecurityContextHolder.getContext().authentication
-
         if (token != null && authentication == null) {
             return auth
                 .verifyIdTokenAsync(token, false)

@@ -1,9 +1,9 @@
-package com.dev.course.feature.authorization.domain.usecases
+package innobiz.crm.genompluslab.feature.authorization.domain.usecases
 
 import com.google.firebase.auth.FirebaseToken
-import com.dev.course.core.security.SessionUser
-import com.dev.course.feature.users.domain.models.UserAggregate
-import com.dev.course.feature.users.domain.services.UserAggregateService
+import innobiz.crm.genompluslab.core.security.SessionUser
+import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
+import innobiz.crm.genompluslab.feature.users.domain.services.UserAggregateService
 import org.springframework.stereotype.Service
 
 interface SaveSessionUserUseCase {

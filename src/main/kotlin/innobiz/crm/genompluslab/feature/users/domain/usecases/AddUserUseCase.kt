@@ -1,16 +1,16 @@
-package com.dev.course.feature.users.domain.usecases
+package innobiz.crm.genompluslab.feature.users.domain.usecases
 
-import com.dev.course.core.config.api.CreateResponseDto
-import com.dev.course.feature.authority.domain.errors.AuthorityNotFoundException
-import com.dev.course.feature.authority.domain.services.AuthorityAggregateService
-import com.dev.course.feature.users.domain.errors.UserDuplicateLoginException
-import com.dev.course.feature.users.domain.models.UserAggregate
-import com.dev.course.feature.users.domain.services.UserAggregateService
-import com.dev.course.feature.users.presentation.dto.CreateUserDto
+import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.authority.domain.services.AuthorityAggregateService
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserDuplicateLoginException
+import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
+import innobiz.crm.genompluslab.feature.users.domain.services.UserAggregateService
+import innobiz.crm.genompluslab.feature.users.presentation.dto.CreateUserDto
 import com.google.firebase.auth.UserRecord
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import com.dev.course.core.config.FirebaseConfig
+import innobiz.crm.genompluslab.core.config.FirebaseConfig
 
 interface AddUserUseCase {
     suspend operator fun invoke(dto: CreateUserDto): CreateResponseDto

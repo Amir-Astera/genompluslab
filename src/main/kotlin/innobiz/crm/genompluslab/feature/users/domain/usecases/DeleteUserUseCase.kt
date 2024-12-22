@@ -1,6 +1,6 @@
-package com.dev.course.feature.users.domain.usecases
+package innobiz.crm.genompluslab.feature.users.domain.usecases
 
-import com.dev.course.feature.users.domain.services.UserAggregateService
+import innobiz.crm.genompluslab.feature.users.domain.services.UserAggregateService
 import org.springframework.stereotype.Service
 
 interface DeleteUserUseCase {

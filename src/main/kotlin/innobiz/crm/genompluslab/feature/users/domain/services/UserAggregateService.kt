@@ -1,16 +1,16 @@
-package com.dev.course.feature.users.domain.services
+package innobiz.crm.genompluslab.feature.users.domain.services
 
 import innobiz.crm.genompluslab.core.extension.toEntity
 import innobiz.crm.genompluslab.core.extension.toModel
-import com.dev.course.core.security.SessionUser
-import com.dev.course.feature.authority.data.entity.UserAuthorityEntity
-import com.dev.course.feature.repositories.AuthorityRepository
-import com.dev.course.feature.repositories.UserAuthorityRepository
-import com.dev.course.feature.authority.domain.models.Authority
-import com.dev.course.feature.repositories.UserRepository
-import com.dev.course.feature.users.domain.errors.AdminAuthorityNotFoundException
-import com.dev.course.feature.users.domain.errors.UserNotFoundException
-import com.dev.course.feature.users.domain.models.UserAggregate
+import innobiz.crm.genompluslab.core.security.SessionUser
+import innobiz.crm.genompluslab.feature.authority.data.entity.UserAuthorityEntity
+import innobiz.crm.genompluslab.feature.repositories.UserAuthorityRepository
+import innobiz.crm.genompluslab.feature.authority.domain.models.Authority
+import innobiz.crm.genompluslab.feature.repositories.UserRepository
+import innobiz.crm.genompluslab.feature.users.domain.errors.AdminAuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.users.domain.errors.UserNotFoundException
+import innobiz.crm.genompluslab.feature.repositories.AuthorityRepository
+import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.reactive.asFlow
@@ -46,7 +46,7 @@ class UserAggregateServiceImpl(
 
     override suspend fun save(user: UserAggregate) {
         val operator = TransactionalOperator.create(transactionManager)
-        userRepository.saveAll(listOf(innobiz.crm.genompluslab.core.extension.toEntity())).asFlux()
+        userRepository.saveAll(listOf(user.toEntity())).asFlux()
             .thenMany(
                 userAuthorityRepository.saveAll(user.authorities.map {
                     val id = "${user.id}-${it.id}"

@@ -1,8 +1,8 @@
-package com.dev.course.feature.authorization.presentation.rest
+package innobiz.crm.genompluslab.feature.authorization.presentation.rest
 
-import com.dev.course.core.config.api.Controller
-import com.dev.course.feature.authorization.domain.usecases.AuthUseCase
-import com.dev.course.feature.authorization.presentation.dto.AuthResponseDto
+import innobiz.crm.genompluslab.core.config.api.Controller
+import innobiz.crm.genompluslab.feature.authorization.domain.usecases.AuthUseCase
+import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthResponseDto
 import io.swagger.v3.oas.annotations.Hidden
 import io.swagger.v3.oas.annotations.Parameter
 import org.slf4j.Logger
@@ -27,11 +27,8 @@ class AuthController(
         request: ServerHttpRequest
     ): ResponseEntity<AuthResponseDto> {
         val authorizationHeader = request.headers.getFirst(HttpHeaders.AUTHORIZATION) ?: ""
-        println(authorizationHeader)
         val encodedToken = authorizationHeader.split(' ').lastOrNull() ?: ""
-        println(encodedToken)
         val response = authUseCase(encodedToken)
-        println(response)
         return ResponseEntity
             .status(HttpStatus.OK)
             .cacheControl(CacheControl.noCache())

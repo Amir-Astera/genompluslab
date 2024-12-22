@@ -10,8 +10,7 @@ class CartEntity(
         @Id
         val id: String,
         val userId: String,
-        val analysisId: Collection<String>,
-        val quantity: Int,
+        val analysisId: String,
         @Version
         var version: Long?,
         val createdAt: LocalDateTime? = null,

@@ -1,14 +1,13 @@
-package com.dev.course.feature.files.presentation.rest
+package innobiz.crm.genompluslab.feature.files.presentation.rest
 
-import com.dev.course.core.config.api.Controller
-import com.dev.course.core.config.api.CreateApiResponses
-import com.dev.course.feature.files.domain.models.FileDirectory
-import com.dev.course.feature.files.domain.usecases.DeleteFileUseCase
-import com.dev.course.feature.files.domain.usecases.GetFileUseCase
-import com.dev.course.feature.files.domain.usecases.UpdateFileUseCase
-import com.dev.course.feature.files.domain.usecases.UploadFileUseCase
-import com.dev.course.feature.files.presentation.dto.UpdateFileDto
-import io.swagger.v3.oas.annotations.Parameter
+import innobiz.crm.genompluslab.core.config.api.Controller
+import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
+import innobiz.crm.genompluslab.feature.files.domain.models.FileDirectory
+import innobiz.crm.genompluslab.feature.files.domain.usecases.DeleteFileUseCase
+import innobiz.crm.genompluslab.feature.files.domain.usecases.GetFileUseCase
+import innobiz.crm.genompluslab.feature.files.domain.usecases.UpdateFileUseCase
+import innobiz.crm.genompluslab.feature.files.domain.usecases.UploadFileUseCase
+import innobiz.crm.genompluslab.feature.files.presentation.dto.UpdateFileDto
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.slf4j.Logger
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.http.codec.multipart.FilePart
-import org.springframework.http.server.ServerHttpRequest
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
@@ -85,9 +83,9 @@ class FileController(
     @SecurityRequirement(name = "security_auth")
     @DeleteMapping("/{directory}/{id}.{format}", produces = [MediaType.ALL_VALUE])
     suspend fun deleteFile(
-        @PathVariable id: String,
-        @PathVariable directory: FileDirectory,
-        @PathVariable format: String
+            @PathVariable id: String,
+            @PathVariable directory: FileDirectory,
+            @PathVariable format: String
     ): ResponseEntity<Void> {
         try {
             deleteFileUseCase(id, directory, format)

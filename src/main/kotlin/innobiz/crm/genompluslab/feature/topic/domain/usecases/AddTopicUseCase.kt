@@ -1,6 +1,6 @@
 package innobiz.crm.genompluslab.feature.topic.domain.usecases
 
-import com.dev.course.core.config.api.CreateResponseDto
+import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
 import innobiz.crm.genompluslab.feature.topic.domain.models.Topic
 import innobiz.crm.genompluslab.feature.topic.domain.services.TopicService
 import innobiz.crm.genompluslab.feature.topic.presentation.dto.TopicDto

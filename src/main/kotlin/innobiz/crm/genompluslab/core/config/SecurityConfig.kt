@@ -1,12 +1,12 @@
-package com.dev.course.core.config
+package innobiz.crm.genompluslab.core.config
 
 import com.google.firebase.auth.FirebaseAuth
-import com.dev.course.core.config.properties.SecurityProperties
-import com.dev.course.core.security.TokenAuthenticationConverter
-import com.dev.course.core.security.UnauthorizedAuthenticationEntryPoint
-import com.dev.course.core.security.firebase.FirebaseHeadersExchangeMatcher
-import com.dev.course.core.security.firebase.FirebaseTokenAuthenticationManager
-import com.dev.course.feature.authorization.domain.usecases.SaveSessionUserUseCase
+import innobiz.crm.genompluslab.core.config.properties.SecurityProperties
+import innobiz.crm.genompluslab.core.security.TokenAuthenticationConverter
+import innobiz.crm.genompluslab.core.security.UnauthorizedAuthenticationEntryPoint
+import innobiz.crm.genompluslab.core.security.firebase.FirebaseHeadersExchangeMatcher
+import innobiz.crm.genompluslab.core.security.firebase.FirebaseTokenAuthenticationManager
+import innobiz.crm.genompluslab.feature.authorization.domain.usecases.SaveSessionUserUseCase
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -56,7 +56,7 @@ class SecurityConfig(
         http.exceptionHandling { it.authenticationEntryPoint(entryPoint) }
             .authorizeExchange { it.pathMatchers(HttpMethod.OPTIONS).permitAll() }
             .authorizeExchange { it.pathMatchers(*securityProperties.allowedPublicApis.toTypedArray()).permitAll() }
-            .authorizeExchange { it.pathMatchers("/", "https://backend.curs-clearfinance.kz/", "https://backend.curs-clearfinance.kz", "http://172.18.0.3:8080", "http://172.18.0.3:8080/", "/api/*", "/api/**", "http://localhost:3000/", "http://localhost:3000").permitAll() }
+            .authorizeExchange { it.pathMatchers("/").permitAll() }
             .authorizeExchange { it.matchers(EndpointRequest.toAnyEndpoint()).authenticated() }
             .addFilterAt(authWebFilter, SecurityWebFiltersOrder.AUTHORIZATION)
             .authorizeExchange { it.anyExchange().authenticated() }

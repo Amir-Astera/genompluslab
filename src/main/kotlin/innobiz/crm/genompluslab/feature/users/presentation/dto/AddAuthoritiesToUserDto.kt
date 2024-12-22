@@ -1,4 +1,4 @@
-package com.dev.course.feature.users.presentation.dto
+package innobiz.crm.genompluslab.feature.users.presentation.dto
 
 data class AddAuthoritiesToUserDto(
     val authorityIds: List<String>

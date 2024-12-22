@@ -1,6 +1,6 @@
-package com.dev.course.core.security.firebase
+package innobiz.crm.genompluslab.core.security.firebase
 
-import com.dev.course.core.security.SessionUser
+import innobiz.crm.genompluslab.core.security.SessionUser
 import org.apache.logging.log4j.util.Strings
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.BadCredentialsException

@@ -1,9 +1,9 @@
 package innobiz.crm.genompluslab.feature.topic.presentation.rest
 
-import com.dev.course.core.config.api.Controller
-import com.dev.course.core.config.api.CreateApiResponses
-import com.dev.course.core.config.api.CreateResponseDto
-import com.dev.course.core.config.api.OkApiResponses
+import innobiz.crm.genompluslab.core.config.api.Controller
+import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
+import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
+import innobiz.crm.genompluslab.core.config.api.OkApiResponses
 import innobiz.crm.genompluslab.feature.topic.domain.models.Topic
 import innobiz.crm.genompluslab.feature.topic.domain.usecases.AddTopicUseCase
 import innobiz.crm.genompluslab.feature.topic.domain.usecases.DeleteTopicUseCase

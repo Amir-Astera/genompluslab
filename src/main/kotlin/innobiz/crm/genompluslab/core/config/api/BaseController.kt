@@ -1,4 +1,4 @@
-package com.dev.course.core.config.api
+package innobiz.crm.genompluslab.core.config.api
 
 import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.http.HttpStatus

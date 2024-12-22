@@ -1,6 +1,6 @@
-package com.dev.course.feature.files.data
+package innobiz.crm.genompluslab.feature.files.data
 
-import com.dev.course.feature.files.domain.models.FileDirectory
+import innobiz.crm.genompluslab.feature.files.domain.models.FileDirectory
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Version
 import org.springframework.data.relational.core.mapping.Table

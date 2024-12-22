@@ -14,7 +14,8 @@ class AnalysisEntity(
         val name: String,
         val material: String,
         val deadline: String,
-        val price: String,
+        val price: Double,
+        val description: String,
         @Version
         var version: Long?,
         val createdAt: LocalDateTime? = null,

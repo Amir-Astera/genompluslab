@@ -1,7 +1,7 @@
-package com.dev.course.feature.files.domain.usecases
+package innobiz.crm.genompluslab.feature.files.domain.usecases
 
-import com.dev.course.feature.files.domain.models.FileDirectory
-import com.dev.course.feature.files.domain.services.FileService
+import innobiz.crm.genompluslab.feature.files.domain.models.FileDirectory
+import innobiz.crm.genompluslab.feature.files.domain.services.FileService
 import org.springframework.stereotype.Service
 
 interface DeleteFileUseCase {

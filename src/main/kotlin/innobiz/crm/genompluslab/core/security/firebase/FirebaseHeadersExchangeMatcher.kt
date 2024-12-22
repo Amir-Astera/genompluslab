@@ -1,4 +1,4 @@
-package com.dev.course.core.security.firebase
+package innobiz.crm.genompluslab.core.security.firebase
 
 import org.springframework.http.HttpHeaders
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatcher

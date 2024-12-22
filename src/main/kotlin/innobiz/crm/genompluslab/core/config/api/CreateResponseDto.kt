@@ -1,3 +1,3 @@
-package com.dev.course.core.config.api
+package innobiz.crm.genompluslab.core.config.api
 
 data class CreateResponseDto(val id: String)

@@ -1,3 +1,3 @@
-package com.dev.course.feature.authorization.domain.errors
+package innobiz.crm.genompluslab.feature.authorization.domain.errors
 
 class FirebaseAuthException(message: String): RuntimeException(message)

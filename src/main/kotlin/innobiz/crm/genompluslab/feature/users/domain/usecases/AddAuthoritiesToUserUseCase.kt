@@ -1,8 +1,8 @@
-package com.dev.course.feature.users.domain.usecases
+package innobiz.crm.genompluslab.feature.users.domain.usecases
 
-import com.dev.course.feature.authority.domain.errors.AuthorityNotFoundException
-import com.dev.course.feature.users.domain.services.UserAggregateService
-import com.dev.course.feature.users.presentation.dto.AddAuthoritiesToUserDto
+import innobiz.crm.genompluslab.feature.authority.domain.errors.AuthorityNotFoundException
+import innobiz.crm.genompluslab.feature.users.domain.services.UserAggregateService
+import innobiz.crm.genompluslab.feature.users.presentation.dto.AddAuthoritiesToUserDto
 import org.springframework.stereotype.Service
 
 interface AddAuthoritiesToUserUseCase {

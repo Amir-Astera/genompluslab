@@ -1,7 +1,7 @@
-package com.dev.course.feature.authorization.domain.usecases
+package innobiz.crm.genompluslab.feature.authorization.domain.usecases
 
-import com.dev.course.feature.authorization.domain.services.FirebaseAuthService
-import com.dev.course.feature.authorization.presentation.dto.AuthResponseDto
+import innobiz.crm.genompluslab.feature.authorization.domain.services.FirebaseAuthService
+import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthResponseDto
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -22,8 +22,6 @@ internal class AuthUseCaseImpl(
         }
         val email = credentials.first()
         val password = credentials.last()
-        println(email)
-        println(password)
         return service.auth(email, password)
     }
 }
