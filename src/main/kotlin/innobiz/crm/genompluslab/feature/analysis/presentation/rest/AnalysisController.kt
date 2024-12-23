@@ -32,7 +32,8 @@ class AnalysisController(
         private val getTopAnalysesUseCase: GetTopAnalysesUseCase,
         private val deleteAnalysisUseCase: DeleteAnalysisUseCase,
         private val updateAllPricesByPercentage: UpdateAllPricesByPercentage,
-        private val updateAnalysisUseCase: UpdateAnalysisUseCase
+        private val updateAnalysisUseCase: UpdateAnalysisUseCase,
+        private val searchAnalysisUseCase: SearchAnalysisUseCase
 ): Controller(logger) {
     @CreateApiResponses
     @PostMapping
@@ -139,4 +140,24 @@ class AnalysisController(
             throw ResponseStatusException(code, message)
         }
     }
+
+    @CreateApiResponses
+    @GetMapping("/search/{cityId}")
+    suspend fun searchAnalysis(
+            @PathVariable cityId: String,
+            @RequestParam name: String,
+            @RequestParam(required = false, defaultValue = "0")
+            page: Int,
+            @RequestParam(required = false, defaultValue = "10")
+            size: Int,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<Map<String, Any>> {
+        try {
+            return HttpStatus.OK.response(searchAnalysisUseCase(cityId, name, page, size))
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
 }

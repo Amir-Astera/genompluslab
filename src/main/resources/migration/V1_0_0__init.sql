@@ -132,3 +132,10 @@ CREATE TABLE IF NOT EXISTS USER_AUTHORITY (
   CREATED_AT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UPDATED_AT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE INDEX idx_topic_analysis_topic_id ON topic_analysis(topic_id);
+CREATE INDEX idx_topic_analysis_analysis_id ON topic_analysis(analysis_id);
+
+CREATE INDEX idx_city_analysis_city_id ON city_analysis(city_id);
+CREATE INDEX idx_city_analysis_analysis_id ON city_analysis(analysis_id);

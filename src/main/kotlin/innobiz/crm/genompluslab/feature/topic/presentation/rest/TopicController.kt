@@ -4,11 +4,9 @@ import innobiz.crm.genompluslab.core.config.api.Controller
 import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
 import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
 import innobiz.crm.genompluslab.core.config.api.OkApiResponses
+import innobiz.crm.genompluslab.feature.analytics.domain.models.TopicWithScore
 import innobiz.crm.genompluslab.feature.topic.domain.models.Topic
-import innobiz.crm.genompluslab.feature.topic.domain.usecases.AddTopicUseCase
-import innobiz.crm.genompluslab.feature.topic.domain.usecases.DeleteTopicUseCase
-import innobiz.crm.genompluslab.feature.topic.domain.usecases.GetTopicUseCase
-import innobiz.crm.genompluslab.feature.topic.domain.usecases.UpdateTopicUseCase
+import innobiz.crm.genompluslab.feature.topic.domain.usecases.*
 import innobiz.crm.genompluslab.feature.topic.presentation.dto.TopicDto
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
@@ -28,6 +26,8 @@ class TopicController(
         logger: Logger,
         private val addTopicUseCase: AddTopicUseCase,
         private val getTopicUseCase: GetTopicUseCase,
+        private val getAllTopicUseCase: GetAllTopicUseCase,
+        private val getTopTopicUseCase: GetTopTopicsUseCase,
         private val updateTopicUseCase: UpdateTopicUseCase,
         private val deleteTopicUseCase: DeleteTopicUseCase
 ): Controller(logger) {
@@ -88,4 +88,37 @@ class TopicController(
             throw ResponseStatusException(code, message)
         }
     }
+
+    @CreateApiResponses
+    @GetMapping("/get/{cityId}")
+    suspend fun getAllTopic(
+            @PathVariable cityId: String,
+            @RequestParam(required = false, defaultValue = "0")
+            page: Int,
+            @RequestParam(required = false, defaultValue = "10")
+            size: Int,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<Map<String, Any>> {
+        try {
+            return HttpStatus.OK.response(getAllTopicUseCase(cityId, page, size))
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @CreateApiResponses
+    @GetMapping("/top/{cityId}")
+    suspend fun getTopTopic(
+            @PathVariable cityId: String,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<Collection<TopicWithScore>> {
+        try {
+            return HttpStatus.OK.response(getTopTopicUseCase(cityId))
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
 }
