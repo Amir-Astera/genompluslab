@@ -83,7 +83,7 @@ internal class AnalysisServiceImpl(
                      analyticsAnalysisRepository.saveAll(
                              listOf(
                                      AnalyticsAnalysisEntity(
-                                             "${analysis.id}-${UUID.randomUUID().toString()}",
+                                             "${analysis.id}-${UUID.randomUUID()}",
                                              analysis.id,
                                              city.id,
                                              0.0,

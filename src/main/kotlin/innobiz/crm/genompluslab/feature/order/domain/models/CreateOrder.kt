@@ -1,0 +1,26 @@
+package innobiz.crm.genompluslab.feature.order.domain.models
+
+data class CreateOrder(
+        val manId: String,
+        val patientId: String,
+        val regdate: String,
+        val orderdate: String,
+        val agrId: String,
+        val orderingId: String,
+        val depId: String,
+        val directDoctorId: String,
+        val categoryId: String,
+        val priceLuId: String,
+        val cito: String,
+        val stacStatus: String,
+        val transpStatus: String,
+        val conditionId: String,
+        val diagnos: String,
+        val infoLuId: String,
+        val lu26Id: String,
+        val placeid: String,
+        val goalId: String,
+        val note1: String,
+        val note2: String,
+        val extId: String,
+)

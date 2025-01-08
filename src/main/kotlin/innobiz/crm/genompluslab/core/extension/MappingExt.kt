@@ -14,6 +14,10 @@ import innobiz.crm.genompluslab.feature.city.data.CityEntity
 import innobiz.crm.genompluslab.feature.city.domain.models.City
 import innobiz.crm.genompluslab.feature.files.data.FileEntity
 import innobiz.crm.genompluslab.feature.files.domain.models.File
+import innobiz.crm.genompluslab.feature.order.data.OrderEntity
+import innobiz.crm.genompluslab.feature.order.domain.models.Order
+import innobiz.crm.genompluslab.feature.patient.data.PatientEntity
+import innobiz.crm.genompluslab.feature.patient.domain.models.Patient
 import innobiz.crm.genompluslab.feature.topic.data.TopicAnalysisEntity
 import innobiz.crm.genompluslab.feature.topic.data.TopicEntity
 import innobiz.crm.genompluslab.feature.topic.domain.models.Topic
@@ -21,7 +25,6 @@ import java.time.LocalDateTime
 
 fun UserEntity.toModel(
         authorities: Collection<Authority>,
-
 ): UserAggregate {
     return UserAggregate(
             id = id,
@@ -174,8 +177,9 @@ fun Cart.toEntity(): CartEntity {
             id = id,
             userId = userId,
             analysisId = analysisId,
-            version = null,
-            createdAt = LocalDateTime.now(),
+            status = status,
+            version = version,
+            createdAt = createdAt,
             updatedAt = LocalDateTime.now()
     )
 }
@@ -184,7 +188,11 @@ fun CartEntity.toModel(): Cart {
     return Cart(
             id = id,
             userId = userId,
-            analysisId = analysisId
+            analysisId = analysisId,
+            status = status,
+            version = version,
+            createdAt = createdAt ?: LocalDateTime.now(),
+            updatedAt = updatedAt
     )
 }
 
@@ -202,5 +210,62 @@ fun City.toEntity(): CityEntity {
             version = null,
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now()
+    )
+}
+
+fun PatientEntity.toModel(): Patient {
+    return Patient(
+            id = id,
+            internalId = internalId,
+            iin = iin,
+            firstName = firstName,
+            secondName = secondName,
+            lastName = lastName,
+            birthDay = birthDay,
+            sex = sex,
+            numDoc = numDoc
+    )
+}
+
+fun Patient.toEntity(): PatientEntity {
+    return PatientEntity(
+            id = id,
+            internalId = internalId!!,
+            iin = iin,
+            firstName = firstName,
+            secondName = secondName,
+            lastName = lastName,
+            birthDay = birthDay,
+            sex = sex,
+            numDoc = numDoc,
+            version = null,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+    )
+}
+
+fun OrderEntity.toModel(user: UserAggregate): Order {
+     return Order(
+             id = id,
+             user = user,
+             internalId = internalId,
+             totalPrice = totalPrice,
+             status = status,
+             version = version,
+             createdAt = updatedAt,
+             updatedAt = updatedAt
+     )
+}
+
+fun Order.toEntity(userId: String): OrderEntity {
+    return OrderEntity(
+            id = id,
+            internalId = internalId,
+            userId = userId,
+            totalPrice = totalPrice,
+            status = status,
+            version = version,
+            createdAt = createdAt,
+            updatedAt = updatedAt
     )
 }

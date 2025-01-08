@@ -2,6 +2,7 @@ package innobiz.crm.genompluslab.feature.authorization.domain.services
 
 import com.google.firebase.ErrorCode
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
 import innobiz.crm.genompluslab.core.config.properties.SecurityProperties
 import innobiz.crm.genompluslab.feature.authorization.domain.errors.FirebaseAuthException
 import innobiz.crm.genompluslab.feature.authorization.presentation.dto.AuthFirebaseResponseDto

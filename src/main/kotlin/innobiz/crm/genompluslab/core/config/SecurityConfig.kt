@@ -56,7 +56,7 @@ class SecurityConfig(
         http.exceptionHandling { it.authenticationEntryPoint(entryPoint) }
             .authorizeExchange { it.pathMatchers(HttpMethod.OPTIONS).permitAll() }
             .authorizeExchange { it.pathMatchers(*securityProperties.allowedPublicApis.toTypedArray()).permitAll() }
-            .authorizeExchange { it.pathMatchers("/").permitAll() }
+//            .authorizeExchange { it.pathMatchers("/").permitAll() }
             .authorizeExchange { it.matchers(EndpointRequest.toAnyEndpoint()).authenticated() }
             .addFilterAt(authWebFilter, SecurityWebFiltersOrder.AUTHORIZATION)
             .authorizeExchange { it.anyExchange().authenticated() }

@@ -22,12 +22,11 @@ class FirebaseConfig(
     fun init(): FirebaseApp {
         val stream = FileInputStream(securityProperties.firebaseProps.googleCredentials)
         val options = FirebaseOptions.builder()
-            .setCredentials(GoogleCredentials.fromStream(stream)) 
-            .build()
+                .setCredentials(GoogleCredentials.fromStream(stream))
+                .build()
 
-        return if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options)
-        } else FirebaseApp.initializeApp()
+        return FirebaseApp.getApps().firstOrNull() ?: FirebaseApp.initializeApp(options)
+
     }
 
     @Bean

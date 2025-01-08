@@ -121,17 +121,9 @@ security:
     - /swagger-ui.html
     - /webjars/swagger-ui/**
     - /v3/api-docs/**
-    - /api/logs
-    - /api/partners/*/logo.*
-    - /api/users/*/logo.*
-    - /api/lessons/*/logo.*
-    - /api/modules/*/logo.*
     - /auth
-    - /api/users
-    - /api/files
-    - /api/lessons
+    - /api/patient/save
     - /api/authorities
-    - /api/modules
     - /auth/**
     - /resources/**
     - /webjars/**

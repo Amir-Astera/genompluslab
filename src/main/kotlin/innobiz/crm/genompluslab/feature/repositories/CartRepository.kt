@@ -1,5 +1,6 @@
 package innobiz.crm.genompluslab.feature.repositories
 
+import innobiz.crm.genompluslab.core.config.enums.CartStatus
 import innobiz.crm.genompluslab.feature.analysis.data.AnalysisEntity
 import innobiz.crm.genompluslab.feature.cart.data.CartEntity
 import innobiz.crm.genompluslab.feature.cart.domain.models.CartDetailsDto
@@ -17,14 +18,16 @@ interface CartRepository: CoroutineCrudRepository<CartEntity, String> {
     suspend fun findByUserIdAndAnalysisId(userId: String, analysisId: String): CartEntity?
 
     @Query("""
-    SELECT COUNT(c.analysis_id) AS totalCount, 
-           SUM(a.price) AS totalSum, 
-           c.user_id AS userId
-    FROM cart c
-    JOIN analysis a ON c.analysis_id = a.id
-    WHERE c.user_id = :userId
-    GROUP BY c.user_id
-""")
-    suspend fun getCartSummary(userId: String): Map<String, Any>
+        SELECT * FROM cart 
+        WHERE user_id = :userId 
+          AND status = :status
+          AND analysis_id = :analysisId
+    """)
+    fun findByUserIdAndStatusAndAnalysisId(
+            userId: String,
+            status: CartStatus,
+            analysisId: String
+    ): Mono<CartEntity>
+
 
 }

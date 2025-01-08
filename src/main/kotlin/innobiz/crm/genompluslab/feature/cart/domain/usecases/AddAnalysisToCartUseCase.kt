@@ -1,5 +1,6 @@
 package innobiz.crm.genompluslab.feature.cart.domain.usecases
 
+import innobiz.crm.genompluslab.core.config.enums.CartStatus
 import innobiz.crm.genompluslab.feature.cart.domain.models.Cart
 import innobiz.crm.genompluslab.feature.cart.domain.services.CartService
 import innobiz.crm.genompluslab.feature.cart.presentation.dto.AddAnalysisToCartDto
@@ -17,7 +18,8 @@ internal class AddAnalysisToCartUseCaseImpl(
         cartService.save(
                 Cart(
                 userId = dto.userId,
-                analysisId = dto.analysisId
+                analysisId = dto.analysisId,
+                status = CartStatus.IN
         ))
     }
 

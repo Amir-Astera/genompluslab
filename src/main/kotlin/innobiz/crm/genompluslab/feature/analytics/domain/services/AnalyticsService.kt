@@ -26,7 +26,6 @@ interface AnalyticsService{
 @Service
 internal class AnalyticsServiceImpl(
     private val analyticsAnalysisRepository: AnalyticsAnalysisRepository,
-    private val analyticsTopicRepository: AnalyticsTopicRepository
 ): AnalyticsService {
     override suspend fun saveAnalyticAnalysis(analyticsAnalysis: AnalyticsAnalysis) {
         analyticsAnalysisRepository.save(analyticsAnalysis.toEntity())

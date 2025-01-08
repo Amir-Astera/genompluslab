@@ -48,7 +48,7 @@ internal class AddUserUseCaseImpl(
                 .setPassword(dto.password)
                 .setUid(user.id)
         firebaseConfig.auth().createUser(userFirebase)
-         userService. save(user)
+        userService.save(user)
         return CreateResponseDto(user.id)
     }
 }

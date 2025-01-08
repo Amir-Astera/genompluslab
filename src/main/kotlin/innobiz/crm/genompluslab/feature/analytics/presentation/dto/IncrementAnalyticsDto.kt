@@ -1,6 +1,6 @@
 package innobiz.crm.genompluslab.feature.analytics.presentation.dto
 
-data class IncrementViewDto(
+data class IncrementAnalyticsDto(
         val cityId: String,
         val analysisId: String
 )

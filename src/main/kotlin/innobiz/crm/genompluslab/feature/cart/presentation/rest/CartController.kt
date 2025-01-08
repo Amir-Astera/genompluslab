@@ -5,10 +5,9 @@ import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
 import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
 import innobiz.crm.genompluslab.core.config.api.OkApiResponses
 import innobiz.crm.genompluslab.feature.analysis.domain.models.Analysis
-import innobiz.crm.genompluslab.feature.cart.domain.usecases.AddAnalysisToCartUseCase
-import innobiz.crm.genompluslab.feature.cart.domain.usecases.DeleteAnalysisInCartUseCase
-import innobiz.crm.genompluslab.feature.cart.domain.usecases.GetCartUseCase
+import innobiz.crm.genompluslab.feature.cart.domain.usecases.*
 import innobiz.crm.genompluslab.feature.cart.presentation.dto.AddAnalysisToCartDto
+import innobiz.crm.genompluslab.feature.cart.presentation.dto.ChangeStatusCartDto
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -29,8 +28,13 @@ class CartController(
         logger: Logger,
         private val addAnalysisToCartUseCase: AddAnalysisToCartUseCase,
         private val deleteAnalysisInCartUseCase: DeleteAnalysisInCartUseCase,
-        private val getCartUseCase: GetCartUseCase
+        private val getCartUseCase: GetCartUseCase,
+        //TODO Планируется оплату сделать через каспи и оплату сделать на фронте и использовать статусы на фронте по оплате
+        private val changeStatusToWaitingUseCase: ChangeStatusToWaitingUseCase,
+        private val changeStatusToPaidUseCase: ChangeStatusToPaidUseCase,
+        private val changeStatusToInUseCase: ChangeStatusToInUseCase
 ): Controller(logger) {
+    @SecurityRequirement(name = "security_auth")
     @CreateApiResponses
     @PostMapping
     suspend fun create(
@@ -46,6 +50,7 @@ class CartController(
         }
     }
 
+    @SecurityRequirement(name = "security_auth")
     @CreateApiResponses
     @GetMapping("/{userId}")
     suspend fun get(
@@ -74,6 +79,54 @@ class CartController(
             return HttpStatus.OK.response()
         } catch (ex: Exception) {
             val (code, message) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @SecurityRequirement(name = "security_auth")
+    @CreateApiResponses
+    @PostMapping("/paid")
+    suspend fun changeStatusToPaid(
+            @RequestBody dto: ChangeStatusCartDto,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<CreateResponseDto> {
+        try {
+            changeStatusToPaidUseCase(dto)
+            return HttpStatus.OK.response()
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @SecurityRequirement(name = "security_auth")
+    @CreateApiResponses
+    @PostMapping("/waiting")
+    suspend fun changeStatusToWaiting(
+            @RequestBody dto: ChangeStatusCartDto,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<CreateResponseDto> {
+        try {
+            changeStatusToWaitingUseCase(dto)
+            return HttpStatus.OK.response()
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @SecurityRequirement(name = "security_auth")
+    @CreateApiResponses
+    @PostMapping("/in")
+    suspend fun changeStatusToIn(
+            @RequestBody dto: ChangeStatusCartDto,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<CreateResponseDto> {
+        try {
+            changeStatusToInUseCase(dto)
+            return HttpStatus.OK.response()
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
             throw ResponseStatusException(code, message)
         }
     }

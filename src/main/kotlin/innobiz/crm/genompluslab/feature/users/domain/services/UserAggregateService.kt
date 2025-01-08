@@ -6,10 +6,12 @@ import innobiz.crm.genompluslab.core.security.SessionUser
 import innobiz.crm.genompluslab.feature.authority.data.entity.UserAuthorityEntity
 import innobiz.crm.genompluslab.feature.repositories.UserAuthorityRepository
 import innobiz.crm.genompluslab.feature.authority.domain.models.Authority
+import innobiz.crm.genompluslab.feature.patient.data.UserPatientEntity
 import innobiz.crm.genompluslab.feature.repositories.UserRepository
 import innobiz.crm.genompluslab.feature.users.domain.errors.AdminAuthorityNotFoundException
 import innobiz.crm.genompluslab.feature.users.domain.errors.UserNotFoundException
 import innobiz.crm.genompluslab.feature.repositories.AuthorityRepository
+import innobiz.crm.genompluslab.feature.repositories.UserPatientRepository
 import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -41,7 +43,7 @@ class UserAggregateServiceImpl(
         private val userRepository: UserRepository,
         private val transactionManager: ReactiveTransactionManager,
         private val userAuthorityRepository: UserAuthorityRepository,
-        private val authorityRepository: AuthorityRepository,
+        private val authorityRepository: AuthorityRepository
 ): UserAggregateService {
 
     override suspend fun save(user: UserAggregate) {

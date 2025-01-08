@@ -27,7 +27,6 @@ interface TopicService {
     suspend fun delete(id: String)
     suspend fun getAll(cityId: String, page: Int, size: Int): Map<String, Any>
     suspend fun getTopTopics(cityId: String): Collection<TopicWithScore>
-
     suspend fun getByName(cityId: String, name: String, page: Int, size: Int): Map<String, Any>
     suspend fun isTopic(cityId: String, name: String): Long
 }
@@ -44,31 +43,34 @@ internal class TopicServiceImpl(
 
     override suspend fun getTopTopics(cityId: String): Collection<TopicWithScore> {
         return databaseClient.sql("""
-            SELECT t.*, 
-                   SUM(
-                       s.sales_count * :salesWeight +
-                       s.views_count * :viewsWeight +
-                       s.cart_count * :cartAddsWeight
-                   ) *
-                   CASE
-                       WHEN MAX(s.last_sale_date) = CURRENT_DATE THEN 1.0
-                       WHEN MAX(s.last_sale_date) >= CURRENT_DATE - INTERVAL '7 days' THEN 0.8
-                       WHEN MAX(s.last_sale_date) >= CURRENT_DATE - INTERVAL '30 days' THEN 0.5
-                       ELSE 0.2
-                   END AS total_popularity,
-                   MIN(a.price) AS min_price,
-                   COUNT(ta.analysis_id) AS total_analyses
-            FROM topic t
-            JOIN topic_analysis ta ON t.id = ta.topic_id
-            JOIN analytics_popular_analysis s ON ta.analysis_id = s.analysis_id
-            JOIN analysis a ON a.id = ta.analysis_id
-            GROUP BY t.id, t.name, t.version, t.created_at, t.updated_at
-            ORDER BY total_popularity DESC
-            LIMIT 3
-        """)
+    SELECT t.*, 
+           SUM(
+               s.sales_count * :salesWeight +
+               s.views_count * :viewsWeight +
+               s.cart_count * :cartAddsWeight
+           ) *
+           CASE
+               WHEN MAX(s.last_sale_date) = CURRENT_DATE THEN 1.0
+               WHEN MAX(s.last_sale_date) >= CURRENT_DATE - INTERVAL '7 days' THEN 0.8
+               WHEN MAX(s.last_sale_date) >= CURRENT_DATE - INTERVAL '30 days' THEN 0.5
+               ELSE 0.2
+           END AS total_popularity,
+           MIN(a.price) AS min_price,
+           COUNT(ta.analysis_id) AS total_analyses
+    FROM topic t
+    JOIN topic_analysis ta ON t.id = ta.topic_id
+    JOIN analytics_popular_analysis s ON ta.analysis_id = s.analysis_id
+    JOIN analysis a ON a.id = ta.analysis_id
+    JOIN city_analysis ca ON a.id = ca.analysis_id
+    WHERE ca.city_id = :cityId
+    GROUP BY t.id, t.name, t.version, t.created_at, t.updated_at
+    ORDER BY total_popularity DESC
+    LIMIT 3
+""")
                 .bind("salesWeight", 1.0)
                 .bind("viewsWeight", 0.2)
                 .bind("cartAddsWeight", 0.3)
+                .bind("cityId", cityId)
                 .map { row, _ ->
                     TopicWithScore(
                             topic = Topic(
