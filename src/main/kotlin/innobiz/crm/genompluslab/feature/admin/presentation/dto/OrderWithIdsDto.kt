@@ -6,7 +6,6 @@ data class OrderWithIdsDto (
 )
 
 data class MaterialsWithIds(
-        val orderAnalysisId: String,
         val keyId: String,
         val materialId: String,
         val ids: String,
