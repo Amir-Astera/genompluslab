@@ -62,8 +62,8 @@ internal class CreateOrderUseCaseImpl(
             val orderAnalyses = analyses.map { analysis ->
                 OrderAnalyses(
                         id = "${order.id} - ${analysis.id}",
-                        orderId = order.id,
-                        analysisId = analysis.id,
+                        order = order,
+                        analysis = analysis,
                         ids = null,
                         price = analysis.price,
                         status = OrderAnalysisStatus.CREATED,
