@@ -9,8 +9,8 @@ data class UserPatientDto(
         val lastName: String?,
         val birthDay: LocalDate,
         val sex: String,
-        val password: String?,
-        val email: String?,
-        val phone: String?,
+        val password: String,
+        val email: String,
+        val phone: String,
         val numDoc: String
 )

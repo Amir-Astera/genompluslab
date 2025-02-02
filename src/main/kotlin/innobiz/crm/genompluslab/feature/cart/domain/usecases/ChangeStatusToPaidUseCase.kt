@@ -13,6 +13,7 @@ internal class ChangeStatusToPaidUseCaseImpl(
         private val cartService: CartService
 ): ChangeStatusToPaidUseCase {
     override suspend fun invoke(dto: ChangeStatusCartDto) {
-        cartService.changeStatusToPaid(dto.userId, dto.analyses)
+        println(dto.analyses.map { it.id })
+        cartService.changeStatusToPaid(dto.userId, dto.analyses.map { it.id })
     }
 }

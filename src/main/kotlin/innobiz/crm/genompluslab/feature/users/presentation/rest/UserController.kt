@@ -40,7 +40,8 @@ class UserController(
         private val getUserBySessionUseCase: GetUserBySessionUseCase,
         private val updateUserUseCase: UpdateUserUseCase,
         private val deleteUserUseCase: DeleteUserUseCase,
-        private val getAllUseCase: GetAllUseCase
+        private val getAllUseCase: GetAllUseCase,
+        private val getUserPatientUseCase: GetUserPatientUseCase
 ): Controller(logger) {
 
     @SecurityRequirement(name = "security_auth")
@@ -162,6 +163,16 @@ class UserController(
     ): ResponseEntity<Map<String, Any>> {
         try {
             return HttpStatus.OK.response(getAllUseCase(email, page, size))
+        } catch (ex: Exception) {
+            val (code, message) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @GetMapping("/byPhone/{phone}")
+    suspend fun getByPhone(@PathVariable phone: String): ResponseEntity<Map<String, Any>> {
+        try {
+            return HttpStatus.OK.response(getUserPatientUseCase(phone))
         } catch (ex: Exception) {
             val (code, message) = getError(ex)
             throw ResponseStatusException(code, message)

@@ -87,7 +87,8 @@ security:
     path: /
   allow-credentials: true
   allowed-origins:
-    - "*"
+#    - "*"
+    - "http://localhost:5174"
   allowed-methods:
     - GET
     - HEAD
@@ -122,9 +123,14 @@ security:
     - /webjars/swagger-ui/**
     - /v3/api-docs/**
     - /auth
+    - /auth/store
+    - /auth/me
+    - /api/patient/check/iin
     - /api/patient/save
+    - /api/patient/phone
     - /api/authorities
-    - /auth/**
+    - /api/topic/top/*
+    - /api/analysis/popular/*
     - /resources/**
     - /webjars/**
     - /assets/**
@@ -134,6 +140,7 @@ security:
     - status
     - date
     - content-length
+    - Set-Cookie
 task:
   poolSize: 5
   threadNamePrefix: "ThreadPoolTaskScheduler"

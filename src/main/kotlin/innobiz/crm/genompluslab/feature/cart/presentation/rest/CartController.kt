@@ -4,13 +4,17 @@ import innobiz.crm.genompluslab.core.config.api.Controller
 import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
 import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
 import innobiz.crm.genompluslab.core.config.api.OkApiResponses
+import innobiz.crm.genompluslab.core.security.firebase.FirebaseSecurityUtils
 import innobiz.crm.genompluslab.feature.analysis.domain.models.Analysis
+import innobiz.crm.genompluslab.feature.authorization.domain.errors.AuthException
 import innobiz.crm.genompluslab.feature.cart.domain.usecases.*
 import innobiz.crm.genompluslab.feature.cart.presentation.dto.AddAnalysisToCartDto
 import innobiz.crm.genompluslab.feature.cart.presentation.dto.ChangeStatusCartDto
+import innobiz.crm.genompluslab.feature.cart.presentation.dto.GetCartDto
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
+import kotlinx.coroutines.reactor.awaitSingleOrNull
 import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -19,6 +23,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.server.ServerWebExchange
 
 @RestController
 @RequestMapping("/api/cart")
@@ -50,17 +55,16 @@ class CartController(
         }
     }
 
+    //TODO на фронте должны знать какие анализы уже есть в корзине
     @SecurityRequirement(name = "security_auth")
     @CreateApiResponses
-    @GetMapping("/{userId}")
+    @GetMapping("/get")
     suspend fun get(
-            @PathVariable userId: String,
-            @AuthenticationPrincipal userDetails: UserDetails,
+            @Parameter(hidden = true) exchange: ServerWebExchange,
             @Parameter(hidden = true) request: ServerHttpRequest
-    ): ResponseEntity<Map<String, Any>> {
+    ): ResponseEntity<GetCartDto> {
         try {
-            println(userDetails.username)
-            return HttpStatus.OK.response(getCartUseCase(userId))
+            return HttpStatus.OK.response(getCartUseCase(exchange))
         } catch (ex: Exception) {
             val (code: HttpStatus, message: String?) = getError(ex)
             throw ResponseStatusException(code, message)
@@ -69,13 +73,15 @@ class CartController(
 
     @SecurityRequirement(name = "security_auth")
     @OkApiResponses
-    @DeleteMapping("/{userId}/{analysisId}")
+    @DeleteMapping("/{analysisId}")
     suspend fun delete(
-            @PathVariable userId: String,
+            @Parameter(hidden = true) exchange: ServerWebExchange,
             @PathVariable analysisId: String
     ): ResponseEntity<Void> {
         try {
-            deleteAnalysisInCartUseCase(userId, analysisId)
+            println(analysisId)
+            val sessionUser = FirebaseSecurityUtils.getUserFromRequest(exchange).awaitSingleOrNull() ?: throw AuthException()
+            deleteAnalysisInCartUseCase(sessionUser.login, analysisId)
             return HttpStatus.OK.response()
         } catch (ex: Exception) {
             val (code, message) = getError(ex)

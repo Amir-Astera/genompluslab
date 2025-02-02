@@ -8,7 +8,10 @@ import innobiz.crm.genompluslab.feature.users.domain.errors.UserNotFoundExceptio
 import innobiz.crm.genompluslab.feature.users.domain.errors.UserPartnersNotFoundException
 import innobiz.crm.genompluslab.feature.analysis.domain.errors.AnalysisNotFoundException
 import innobiz.crm.genompluslab.feature.analysis.domain.errors.GetAllAnalysisNotFoundException
+import innobiz.crm.genompluslab.feature.authorization.domain.errors.AuthException
 import innobiz.crm.genompluslab.feature.authorization.domain.errors.FirebaseAuthException
+import innobiz.crm.genompluslab.feature.cart.domain.errors.CartAnalysisAlreadyExistException
+import innobiz.crm.genompluslab.feature.cart.domain.errors.CartNotFoundException
 import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicAnalysesNotFoundException
 import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicDuplicateNameException
 import innobiz.crm.genompluslab.feature.topic.domain.errors.TopicNotFoundException
@@ -34,18 +37,21 @@ abstract class Controller(val logger: Logger) {
 
         protected fun getError(ex: Exception) =
                 when (ex) {
-                    is FirebaseAuthException -> Pair(HttpStatus.UNAUTHORIZED, ex.message)
+                    is FirebaseAuthException,
+                    is AuthException -> Pair(HttpStatus.UNAUTHORIZED, ex.message)
+                    is AuthorityDuplicateNameException,
+                    is TopicDuplicateNameException,
+                    is CartAnalysisAlreadyExistException,
+                    is UserDuplicateLoginException -> Pair(HttpStatus.CONFLICT, ex.message)
                     is UserNotFoundException,
                     is UserPartnersNotFoundException,
                     is AuthorityNotFoundException,
                     is AdminAuthorityNotFoundException,
-                    is AuthorityDuplicateNameException,
                     is AnalysisNotFoundException,
                     is GetAllAnalysisNotFoundException,
                     is TopicAnalysesNotFoundException,
-                    is TopicDuplicateNameException,
                     is TopicNotFoundException,
-                    is UserDuplicateLoginException -> Pair(HttpStatus.CONFLICT, ex.message)
+                    is CartNotFoundException -> Pair(HttpStatus.NOT_FOUND, ex.message)
                         else -> {
                                 logger.error("Unhandled error", ex)
                                 Pair(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)

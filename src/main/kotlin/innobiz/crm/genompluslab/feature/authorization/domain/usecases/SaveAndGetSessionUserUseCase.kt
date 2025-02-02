@@ -15,8 +15,8 @@ internal class SaveSessionUserUseCaseImpl(
     private val userService: UserAggregateService
 ) : SaveSessionUserUseCase {
     override suspend fun invoke(token: FirebaseToken): SessionUser {
-        val phone = token.claims["phone_number"] as? String ?: ""
-        val login = token.email ?: phone
+        val phone = token.claims["phone_number"] as? String
+        val login = phone ?: token.email
         val aggregate: UserAggregate
         val foundAggregate = userService.getByEmail(login) ?: userService.getByPhone(login) ?: userService.getByLogin(login)
         if (foundAggregate != null) {
@@ -30,7 +30,7 @@ internal class SaveSessionUserUseCaseImpl(
                 name = token.name ?: login,
                 login = login,
                 email = token.email,
-                phone = token.claims["phone_number"] as? String,
+                phone = token.claims["phone_number"] as String,
                 surname = token.claims["surname"] as? String
             )
             userService.save(aggregate)

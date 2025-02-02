@@ -15,6 +15,8 @@ import reactor.core.publisher.Mono
 interface CartRepository: CoroutineCrudRepository<CartEntity, String> {
     suspend fun findByUserId(userId: String): Flow<CartEntity>?
 
+    suspend fun findByUserIdAndStatus(userId: String, status: CartStatus): Flow<CartEntity>?
+
     suspend fun findByUserIdAndAnalysisId(userId: String, analysisId: String): CartEntity?
 
     @Query("""

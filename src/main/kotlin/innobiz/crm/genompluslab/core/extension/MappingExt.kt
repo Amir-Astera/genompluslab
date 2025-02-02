@@ -1,5 +1,9 @@
 package innobiz.crm.genompluslab.core.extension
 
+import com.google.api.core.ApiFuture
+import com.google.api.core.ApiFutureCallback
+import com.google.api.core.ApiFutures
+import com.google.common.util.concurrent.MoreExecutors
 import innobiz.crm.genompluslab.feature.authority.data.entity.AuthorityEntity
 import innobiz.crm.genompluslab.feature.users.data.entity.UserEntity
 import innobiz.crm.genompluslab.feature.users.domain.models.UserAggregate
@@ -14,13 +18,16 @@ import innobiz.crm.genompluslab.feature.city.data.CityEntity
 import innobiz.crm.genompluslab.feature.city.domain.models.City
 import innobiz.crm.genompluslab.feature.files.data.FileEntity
 import innobiz.crm.genompluslab.feature.files.domain.models.File
+import innobiz.crm.genompluslab.feature.order.data.OrderAnalysisEntity
 import innobiz.crm.genompluslab.feature.order.data.OrderEntity
 import innobiz.crm.genompluslab.feature.order.domain.models.Order
+import innobiz.crm.genompluslab.feature.order.domain.models.OrderAnalyses
 import innobiz.crm.genompluslab.feature.patient.data.PatientEntity
 import innobiz.crm.genompluslab.feature.patient.domain.models.Patient
 import innobiz.crm.genompluslab.feature.topic.data.TopicAnalysisEntity
 import innobiz.crm.genompluslab.feature.topic.data.TopicEntity
 import innobiz.crm.genompluslab.feature.topic.domain.models.Topic
+import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
 fun UserEntity.toModel(
@@ -124,6 +131,8 @@ fun AnalysisEntity.toModel(): Analysis {
             code = code,
             name = name,
             material = material,
+            materialKeyId = materialKeyId,
+            materialId = materialId,
             deadline = deadline,
             price = price,
             description = description,
@@ -137,6 +146,8 @@ fun Analysis.toEntity(): AnalysisEntity {
             code = code,
             name = name,
             material = material,
+            materialKeyId = materialKeyId,
+            materialId = materialId,
             deadline = deadline,
             price = price,
             description = description,
@@ -268,4 +279,48 @@ fun Order.toEntity(userId: String): OrderEntity {
             createdAt = createdAt,
             updatedAt = updatedAt
     )
+}
+
+fun OrderAnalysisEntity.toModel(
+        order: Order,
+        analysis: Analysis
+): OrderAnalyses {
+    return OrderAnalyses(
+            id = id,
+            order = order,
+            analysis = analysis,
+            ids = ids,
+            price = price,
+            status = status,
+            version = version,
+            createdAt = createdAt,
+            updatedAt = updatedAt ?: LocalDateTime.now()
+    )
+}
+
+fun OrderAnalyses.toEntity(): OrderAnalysisEntity {
+    return OrderAnalysisEntity(
+            id = id,
+            orderId = order.id,
+            analysisId = analysis.id,
+            ids = ids,
+            price = price,
+            status = status,
+            version = version,
+            createdAt = createdAt,
+            updatedAt = updatedAt
+    )
+}
+
+fun <T> apiFutureToMono(apiFuture: ApiFuture<T>): Mono<T> {
+    return Mono.create { sink ->
+        ApiFutures.addCallback(apiFuture, object : ApiFutureCallback<T> {
+            override fun onSuccess(result: T) {
+                sink.success(result)
+            }
+            override fun onFailure(t: Throwable) {
+                sink.error(t)
+            }
+        }, MoreExecutors.directExecutor())
+    }
 }

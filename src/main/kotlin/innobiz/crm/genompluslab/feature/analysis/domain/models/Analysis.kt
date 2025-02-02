@@ -7,6 +7,8 @@ data class Analysis (
         val code: String,
         val name: String,
         val material: String,
+        val materialKeyId: String,
+        val materialId: String,
         val deadline: String,
         val price: Double,
         val description: String,

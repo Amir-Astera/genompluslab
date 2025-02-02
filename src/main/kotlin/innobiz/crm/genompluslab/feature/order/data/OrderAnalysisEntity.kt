@@ -12,10 +12,11 @@ class OrderAnalysisEntity(
         val id: String,
         val orderId: String,
         val analysisId: String,
+        val ids: String?,
         val price: Double,
-        val status: String,
+        val status: OrderAnalysisStatus,
         @Version
         var version: Long?,
-        val createdAt: LocalDateTime? = null,
-        val updatedAt: LocalDateTime
+        val createdAt: LocalDateTime,
+        val updatedAt: LocalDateTime? = null
 )

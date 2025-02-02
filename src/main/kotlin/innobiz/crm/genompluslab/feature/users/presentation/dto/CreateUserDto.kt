@@ -6,7 +6,7 @@ data class CreateUserDto(
     val login: String?,
     val password: String?,
     val surname: String?,
-    val email: String?,
-    val phone: String?,
+    val email: String,
+    val phone: String,
     val authorityIds: List<String>?
 )

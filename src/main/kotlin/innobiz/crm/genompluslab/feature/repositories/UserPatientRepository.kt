@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UserPatientRepository: CoroutineCrudRepository<UserPatientEntity, String> {
-    suspend fun findByPatientId(patientId: String): UserPatientEntity
+    suspend fun findByPatientId(patientId: String): UserPatientEntity?
     suspend fun findByUserId(userId: String): UserPatientEntity?
 }

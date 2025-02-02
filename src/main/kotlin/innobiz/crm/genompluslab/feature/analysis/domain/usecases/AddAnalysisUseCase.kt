@@ -21,10 +21,13 @@ class AddAnalysisUseCaseImpl(
     override suspend fun invoke(dto: AddAnalysisDto) {
         val city = cityService.get(dto.cityId)
         val topic = topicService.get(dto.topicId)
+        //TODO проверка материала
         val analysis = Analysis(
                 code = dto.code,
                 name = dto.name,
                 material = dto.material,
+                materialKeyId = dto.materialKeyId,
+                materialId = dto.materialId,
                 deadline = dto.deadline,
                 price = dto.price,
                 description = dto.description

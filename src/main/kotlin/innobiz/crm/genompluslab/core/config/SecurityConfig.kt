@@ -1,5 +1,6 @@
 package innobiz.crm.genompluslab.core.config
 
+import CookieAuthenticationConverter
 import com.google.firebase.auth.FirebaseAuth
 import innobiz.crm.genompluslab.core.config.properties.SecurityProperties
 import innobiz.crm.genompluslab.core.security.TokenAuthenticationConverter
@@ -30,16 +31,16 @@ class SecurityConfig(
         private val securityProperties: SecurityProperties
 ) : WebFluxConfigurer {
 
-    override fun addCorsMappings(corsRegistry: CorsRegistry) {
-        corsRegistry.addMapping("/**")
-            .allowedMethods("*")
-                .allowedOrigins(*securityProperties.allowedOrigins.toTypedArray())
-                .allowedHeaders(*securityProperties.allowedHeaders.toTypedArray())
-                .allowedMethods(*securityProperties.allowedMethods.toTypedArray())
-                .exposedHeaders(*securityProperties.exposedHeaders.toTypedArray())
-//                .allowCredentials(true)
-                .maxAge(3600)
-    }
+//    override fun addCorsMappings(corsRegistry: CorsRegistry) {
+//        corsRegistry.addMapping("/**")
+//            .allowedMethods("*")
+//                .allowedOrigins(*securityProperties.allowedOrigins.toTypedArray())
+//                .allowedHeaders(*securityProperties.allowedHeaders.toTypedArray())
+//                .allowedMethods(*securityProperties.allowedMethods.toTypedArray())
+//                .exposedHeaders(*securityProperties.exposedHeaders.toTypedArray())
+////                .allowCredentials(true)
+//                .maxAge(3600)
+//    }
 
     @Bean
     fun springSecurityFilterChain(
@@ -52,7 +53,6 @@ class SecurityConfig(
             .formLogin { it.disable() }
             .logout { it.disable() }
             .httpBasic { it.disable() }
-
         http.exceptionHandling { it.authenticationEntryPoint(entryPoint) }
             .authorizeExchange { it.pathMatchers(HttpMethod.OPTIONS).permitAll() }
             .authorizeExchange { it.pathMatchers(*securityProperties.allowedPublicApis.toTypedArray()).permitAll() }
@@ -67,8 +67,8 @@ class SecurityConfig(
     @Bean
     fun authWebFilter(authenticationManager: ReactiveAuthenticationManager): AuthenticationWebFilter {
         val authenticationWebFilter = AuthenticationWebFilter(authenticationManager)
-        authenticationWebFilter.setServerAuthenticationConverter(TokenAuthenticationConverter())
-        authenticationWebFilter.setRequiresAuthenticationMatcher(FirebaseHeadersExchangeMatcher())
+        authenticationWebFilter.setServerAuthenticationConverter(CookieAuthenticationConverter())
+        authenticationWebFilter.setRequiresAuthenticationMatcher(CookieExchangeMatcher())
         authenticationWebFilter.setSecurityContextRepository(WebSessionServerSecurityContextRepository())
         return authenticationWebFilter
     }

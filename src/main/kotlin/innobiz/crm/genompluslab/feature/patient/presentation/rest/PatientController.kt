@@ -3,9 +3,14 @@ package innobiz.crm.genompluslab.feature.patient.presentation.rest
 import innobiz.crm.genompluslab.core.config.api.Controller
 import innobiz.crm.genompluslab.core.config.api.CreateApiResponses
 import innobiz.crm.genompluslab.core.config.api.CreateResponseDto
+import innobiz.crm.genompluslab.feature.patient.domain.models.Patient
 import innobiz.crm.genompluslab.feature.patient.domain.usecases.AddPatientUseCase
 import innobiz.crm.genompluslab.feature.patient.domain.usecases.GetByIINUseCase
+import innobiz.crm.genompluslab.feature.patient.domain.usecases.GetPatientUseCase
+import innobiz.crm.genompluslab.feature.patient.domain.usecases.GetPhoneByIinUseCase
 import innobiz.crm.genompluslab.feature.patient.presentation.dto.GetPatientDto
+import innobiz.crm.genompluslab.feature.patient.presentation.dto.GetUserPatientDto
+import innobiz.crm.genompluslab.feature.patient.presentation.dto.PatientPhoneDto
 import innobiz.crm.genompluslab.feature.patient.presentation.dto.UserPatientDto
 import innobiz.crm.genompluslab.feature.users.domain.usecases.*
 import innobiz.crm.genompluslab.feature.users.presentation.dto.CreateUserDto
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.server.ServerWebExchange
 
 @RestController
 @RequestMapping("/api/patient")
@@ -30,11 +36,13 @@ import org.springframework.web.server.ResponseStatusException
 class PatientController(
         logger: Logger,
         private val addPatientUseCase: AddPatientUseCase,
-        private val getPatientByIINUseCase: GetByIINUseCase
+        private val getPatientByIINUseCase: GetByIINUseCase,
+        private val getPhoneByIinUseCase: GetPhoneByIinUseCase,
+        private val getPatientUseCase: GetPatientUseCase
 ): Controller(logger) {
 
-    @SecurityRequirement(name = "security_auth")
-    @CreateApiResponses
+//    @SecurityRequirement(name = "security_auth")
+//    @CreateApiResponses
     @PostMapping("/save")
     suspend fun create(
             @RequestBody createUser: UserPatientDto,
@@ -51,17 +59,50 @@ class PatientController(
 
     @SecurityRequirement(name = "security_auth")
     @CreateApiResponses
-    @GetMapping("/iin")
-    suspend fun getByIin(
-            @RequestParam(required = true) iin: String,
+    @PostMapping("/check/iin")
+    suspend fun checkByIin(
+            @RequestBody(required = true) dto: GetPatientDto,
             @Parameter(hidden = true) request: ServerHttpRequest
     ): ResponseEntity<Boolean> {
         try {
-            val response = getPatientByIINUseCase(iin)
+            val response = getPatientByIINUseCase(dto.iin)
             return HttpStatus.CREATED.response(response)
         } catch (ex: Exception) {
             val (code: HttpStatus, message: String?) = getError(ex)
             throw ResponseStatusException(code, message)
         }
     }
+
+    @SecurityRequirement(name = "security_auth")
+    @CreateApiResponses
+    @PostMapping("/iin")
+    suspend fun getByIin(
+            @Parameter(hidden = true) request: ServerHttpRequest,
+            @Parameter(hidden = true) exchange: ServerWebExchange
+    ): ResponseEntity<GetUserPatientDto> {
+        try {
+            val response = getPatientUseCase(exchange = exchange)
+            return HttpStatus.CREATED.response(response)
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
+    @SecurityRequirement(name = "security_auth")
+    @CreateApiResponses
+    @PostMapping("/phone")
+    suspend fun getByPhone(
+            @RequestBody(required = true) dto: GetPatientDto,
+            @Parameter(hidden = true) request: ServerHttpRequest
+    ): ResponseEntity<PatientPhoneDto> {
+        try {
+            val response = getPhoneByIinUseCase(dto.iin)
+            return HttpStatus.CREATED.response(response)
+        } catch (ex: Exception) {
+            val (code: HttpStatus, message: String?) = getError(ex)
+            throw ResponseStatusException(code, message)
+        }
+    }
+
 }

@@ -130,6 +130,8 @@ internal class TopicServiceImpl(
                                     code = row.get("code", String::class.java) ?: "",
                                     name = row.get("name", String::class.java) ?: "",
                                     material = row.get("material", String::class.java) ?: "",
+                                    materialKeyId = row.get("material_key_id", String::class.java) ?: "",
+                                    materialId = row.get("material_id", String::class.java) ?: "",
                                     deadline = row.get("deadline", String::class.java) ?: "",
                                     price = row.get("price", Double::class.java) ?: 0.0,
                                     description = row.get("description", String::class.java) ?: "",

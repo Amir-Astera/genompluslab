@@ -13,6 +13,6 @@ internal class ChangeStatusToWaitingUseCaseImpl(
         private val cartService: CartService
 ): ChangeStatusToWaitingUseCase {
     override suspend fun invoke(dto: ChangeStatusCartDto) {
-        cartService.changeStatusToWaiting(dto.userId, dto.analyses)
+        cartService.changeStatusToWaiting(dto.userId, dto.analyses.map { it.id })
     }
 }

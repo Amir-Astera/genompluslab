@@ -11,8 +11,8 @@ class UserEntity(
         val id: String,
         val name: String,
         val surname: String?,
-        val email: String?,
-        val phone: String?,
+        val email: String,
+        val phone: String,
         val login: String,
         val logo: String?,
         @Version

@@ -138,6 +138,8 @@ internal class AnalysisServiceImpl(
                                     code = row.get("code", String::class.java) ?: "",
                                     name = row.get("name", String::class.java) ?: "",
                                     material = row.get("material", String::class.java) ?: "",
+                                    materialKeyId = row.get("material_key_id", String::class.java) ?: "",
+                                    materialId = row.get("material_id", String::class.java) ?: "",
                                     deadline = row.get("deadline", String::class.java) ?: "",
                                     price = row.get("price", String::class.java)?.toDouble() ?: 0.0,
                                     description = row.get("description", String::class.java) ?: "",
@@ -163,8 +165,6 @@ internal class AnalysisServiceImpl(
     override suspend fun getAllByTopicAndCity(cityId: String, topicId: String, page: Int, size: Int): Map<String, Any> {
         return withContext(Dispatchers.IO) {
             val offset = page * size
-            println(offset)
-            println("tut 1")
             val analyses = databaseClient.sql("""
     SELECT a.*, 
            CAST(
@@ -202,6 +202,8 @@ internal class AnalysisServiceImpl(
                                         code = row.get("code", String::class.java) ?: "",
                                         name = row.get("name", String::class.java) ?: "",
                                         material = row.get("material", String::class.java) ?: "",
+                                        materialKeyId = row.get("material_key_id", String::class.java) ?: "",
+                                        materialId = row.get("material_id", String::class.java) ?: "",
                                         deadline = row.get("deadline", String::class.java) ?: "",
                                         price = row.get("price", String::class.java)?.toDouble() ?: 0.0,
                                         description = row.get("description", String::class.java) ?: "",
@@ -213,8 +215,6 @@ internal class AnalysisServiceImpl(
                     .all()
                     .collectList()
                     .awaitSingle()
-            println(analyses)
-            println("tut")
             // Получаем общее количество записей
             val totalElements = databaseClient.sql("""
             SELECT COUNT(DISTINCT s.analysis_id) AS total_count
@@ -300,6 +300,8 @@ internal class AnalysisServiceImpl(
                             code = row.get("code", String::class.java) ?: "",
                             name = row.get("name", String::class.java) ?: "",
                             material = row.get("material", String::class.java) ?: "",
+                            materialKeyId = row.get("material_key_id", String::class.java) ?: "",
+                            materialId = row.get("material_id", String::class.java) ?: "",
                             deadline = row.get("deadline", String::class.java) ?: "",
                             price = row.get("price", String::class.java)?.toDouble() ?: 0.0,
                             description = row.get("description", String::class.java) ?: "",
